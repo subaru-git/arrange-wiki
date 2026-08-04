@@ -436,7 +436,6 @@ export function NewPostForm({
       <section className="tree-builder">
         <div className="tree-builder-head">
           <strong>アレンジツリー</strong>
-          <span> ノードを選び、次のターゲットを追加します</span>
         </div>
 
         <RouteDiagram

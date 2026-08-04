@@ -12,8 +12,8 @@ const shouldEnableGoogleAnalytics =
   process.env.VERCEL_ENV === "production" && Boolean(gaMeasurementId);
 
 export const metadata: Metadata = {
-  title: "Arrange Route｜ダーツの上がり方をルートで探せる",
-  description: "ダーツのアレンジを投稿・投票で探せるルート集",
+  title: "Arrange Route",
+  description: "ダーツのアレンジを検討するサービス",
   ...(googleSiteVerification
     ? { verification: { google: googleSiteVerification } }
     : {}),
@@ -35,7 +35,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             />
             <span>
               <strong>Arrange Route</strong>
-              <small>投稿・投票で探せるルート集</small>
             </span>
           </Link>
           <AuthStatus />
