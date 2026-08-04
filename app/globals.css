@@ -2003,6 +2003,7 @@ button {
 }
 
 .mobile-target-tools,
+.mobile-target-pad,
 .mobile-token-grid {
   display: none;
 }
@@ -2047,6 +2048,57 @@ button {
 
 .token-grid.mobile-token-grid {
   display: none;
+}
+
+.mobile-keypad-side {
+  display: grid;
+  gap: 5px;
+}
+
+.mobile-input-mode {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  justify-self: end;
+  padding: 2px;
+  border: 1px solid rgb(83 112 108 / 16%);
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.mobile-input-mode button {
+  min-height: 30px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  padding: 0 10px;
+}
+
+.mobile-input-mode button.active {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.mobile-standard-input {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.mobile-standard-token-grid button {
+  min-height: 44px;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 14px;
+  padding: 0;
+}
+
+.mobile-bull-targets,
+.mobile-delete-actions {
+  display: grid;
+  gap: 5px;
 }
 
 .builder-tools button {
@@ -2209,6 +2261,15 @@ button {
 
 .bull-targets button:only-child {
   grid-column: 1 / -1;
+}
+
+.mobile-keypad-side button {
+  min-height: 44px;
+  border-radius: 10px;
+  background: var(--color-surface-node-0);
+  color: var(--color-text-primary);
+  font-size: 12px;
+  padding: 0 6px;
 }
 
 .builder-tools button:disabled {
@@ -2419,7 +2480,9 @@ button {
   }
 
   .desktop-target-tools,
-  .desktop-token-grid {
+  .desktop-token-grid,
+  .desktop-bull-targets,
+  .desktop-route-actions {
     display: none;
   }
 
@@ -2427,8 +2490,37 @@ button {
     display: grid;
   }
 
+  .mobile-target-pad {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(72px, 82px);
+    gap: 6px;
+    align-items: stretch;
+  }
+
   .token-grid.mobile-token-grid {
     display: grid;
+  }
+
+  .mobile-target-pad .mobile-token-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .mobile-standard-input .multiplier-segment {
+    grid-column: 1 / -1;
+  }
+
+  .mobile-keypad-side {
+    align-content: stretch;
+    grid-template-rows: auto 1fr;
+  }
+
+  .mobile-bull-targets {
+    grid-auto-rows: minmax(44px, auto);
+  }
+
+  .mobile-delete-actions {
+    align-content: end;
+    grid-auto-rows: minmax(44px, auto);
   }
 
   .token-grid {
