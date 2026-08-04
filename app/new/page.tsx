@@ -1,4 +1,3 @@
-import { signInWithGoogleAction } from "@/app/actions/auth-actions";
 import { NewPostForm } from "@/components/new-post-form";
 import { hasSupabaseAuthConfig } from "@/lib/supabase/config";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
@@ -9,7 +8,6 @@ interface PageProps {
     remaining_score?: string;
     out_rule?: string;
     bull_mode?: string;
-    auth_error?: string;
   };
 }
 
@@ -30,22 +28,6 @@ function normalizeBullMode(value?: string): BullMode {
   return bullModes.includes(value as BullMode) ? (value as BullMode) : "separate";
 }
 
-function buildNextPath(searchParams: PageProps["searchParams"]) {
-  const params = new URLSearchParams();
-  if (searchParams.remaining_score) params.set("remaining_score", searchParams.remaining_score);
-  if (searchParams.out_rule) params.set("out_rule", searchParams.out_rule);
-  if (searchParams.bull_mode) params.set("bull_mode", searchParams.bull_mode);
-  const query = params.toString();
-  return query ? `/new?${query}` : "/new";
-}
-
-function getAuthErrorMessage(value?: string) {
-  if (value === "missing_config") return "Supabaseの認証設定が未設定です。";
-  if (value === "oauth") return "Googleログインを開始できませんでした。";
-  if (value === "login_required") return "投稿するにはGoogleログインが必要です。";
-  return null;
-}
-
 export default async function NewPage({ searchParams }: PageProps) {
   let isSignedIn = false;
 
@@ -55,32 +37,8 @@ export default async function NewPage({ searchParams }: PageProps) {
     isSignedIn = Boolean(data.user);
   }
 
-  const errorMessage = getAuthErrorMessage(searchParams.auth_error);
-
   return (
     <section className="new-post-page">
-      <header>
-        <p className="page-eyebrow">ルートを共有</p>
-        <h1>新しいアレンジ</h1>
-      </header>
-      {!isSignedIn ? (
-        <div className="login-required-panel">
-          <div className="login-required-copy">
-            <p>投稿として保存、公開するにはGoogleログインが必要です。</p>
-          </div>
-          {errorMessage ? <p className="auth-error-message">{errorMessage}</p> : null}
-          <div className="login-required-actions">
-            <form action={signInWithGoogleAction}>
-              <input type="hidden" name="next" value={buildNextPath(searchParams)} />
-              <button type="submit" className="new-form-submit">
-                Googleでログイン
-              </button>
-            </form>
-          </div>
-        </div>
-      ) : errorMessage ? (
-        <p className="auth-error-message">{errorMessage}</p>
-      ) : null}
       <NewPostForm
         canSave={isSignedIn}
         initialRemainingScore={normalizeScore(searchParams.remaining_score)}

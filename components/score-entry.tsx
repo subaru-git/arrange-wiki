@@ -91,7 +91,7 @@ export function ScoreEntry({ commonScores }: { commonScores: number[] }) {
           </div>
         </div>
         <button type="submit" disabled={!score}>
-          アレンジを見る
+          検索する
         </button>
       </form>
 
@@ -105,7 +105,7 @@ export function ScoreEntry({ commonScores }: { commonScores: number[] }) {
           ))}
         </div>
         <p className="score-entry-secondary">
-          アレンジを知っていますか？ <Link href={newPostHref}>ルートを投稿する</Link>
+          <Link href={newPostHref}>ルートを登録する</Link>
         </p>
       </section>
     </div>

@@ -65,6 +65,10 @@ export default async function ScorePage({ params, searchParams }: PageProps) {
 
   return (
     <section className="mx-auto max-w-[760px] space-y-4 py-3">
+      <div className="score-page-kicker">
+        <span>ルート検討</span>
+        <Link href="/scores">条件を変更</Link>
+      </div>
       <header className="score-page-header">
         <div className="flex items-end gap-3">
           <span className="pb-2 text-sm font-semibold text-[var(--color-text-secondary)]">残り</span>
@@ -77,11 +81,20 @@ export default async function ScorePage({ params, searchParams }: PageProps) {
         </div>
       </header>
 
+      <div className="candidate-summary">
+        <h2>検索結果</h2>
+        <strong>{posts.length}ルート</strong>
+      </div>
+
       <div className="grid gap-3">
-        {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
-        ))}
-        <p className="m-0 p-4 text-sm text-[var(--color-text-secondary)]">
+        {posts.length ? (
+          posts.map((post) => <PostCard key={post.id} post={post} />)
+        ) : (
+          <div className="candidate-empty">
+            <strong>登録されたルートはありません</strong>
+          </div>
+        )}
+        <p className="candidate-contribution">
           <Link href={newRouteHref(remainingScore, outRule, bullMode)} className="new-route-link">
             この点数のアレンジを追加
           </Link>
